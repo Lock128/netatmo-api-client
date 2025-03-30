@@ -78,7 +78,7 @@ export class NetatmoApiClient {
       this.saveTokens(res.data);
     } else {
       this.logger.log(
-        `Token is still valid: "${new Date().toLocaleString()}" (now) is after "${new Date(
+        `Token is still valid: "${new Date().toLocaleString()}" (now) is before "${new Date(
           expirationTimestampMinusOneMinute
         ).toLocaleString()} (token expiry)"`
       );
