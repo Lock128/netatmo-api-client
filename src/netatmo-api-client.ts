@@ -23,7 +23,7 @@ export class NetatmoApiClient {
   constructor(
     private readonly clientId: string,
     private readonly clientSecret: string,
-    private tokenRefreshMinutes: number = 1,
+    private tokenExpirationThresholdInMinutes: number = 1,
     private readonly logger: Logger = new DefaultLogger()
   ) {
     this.http = axios.create();
