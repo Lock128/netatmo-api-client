@@ -9,6 +9,7 @@ import { NetatmoApiError } from './errors/api-error';
 import { DefaultLogger, Logger } from './logger';
 import { MeasurementsMapper } from './measurements-mapper';
 import { StationDataMapper } from './station-data-mapper';
+import * as https from 'https';
 
 export class NetatmoApiClient {
   private static readonly NETATMO_BASE_URL = 'https://api.netatmo.com';
@@ -18,7 +19,7 @@ export class NetatmoApiClient {
   private accessToken!: string;
   private refreshToken!: string;
   private expirationTimestamp!: number;
-  private tokenRefreshRequestCount: number = 0;
+  private tokenRefreshRequestCount = 0;
 
   constructor(
     private readonly clientId: string,
@@ -26,7 +27,11 @@ export class NetatmoApiClient {
     private tokenExpirationThresholdInMinutes: number = 1,
     private readonly logger: Logger = new DefaultLogger()
   ) {
-    this.http = axios.create();
+    this.http = axios.create({
+    httpsAgent: new https.Agent({
+      ALPNProtocols: ['h2', 'http/1.1']
+    })
+  });
     this.http.interceptors.request.use((req) => {
       req.headers['Authorization'] = `Bearer ${this.accessToken}`;
       return req;
