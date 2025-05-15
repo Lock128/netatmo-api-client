@@ -53,7 +53,7 @@ export class NetatmoApiClient {
 
   public async refreshTokens(): Promise<void> {
     // refresh the token 1 minute early to be safe
-    const expirationTimestampMinusOneMinute = this.expirationTimestamp - 60 * this.tokenRefreshMinutes;
+    const expirationTimestampMinusThreshold = this.expirationTimestamp - 60 * 1000 * this.tokenExpirationThresholdInMinutes;
     const tokenIsAboutToExpire = Date.now() > expirationTimestampMinusOneMinute;
 
     if (tokenIsAboutToExpire) {
