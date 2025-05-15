@@ -18,7 +18,7 @@ export class NetatmoApiClient {
   private accessToken!: string;
   private refreshToken!: string;
   private expirationTimestamp!: number;
-  private countRequests: number = 0;
+  private tokenRefreshRequestCount: number = 0;
 
   constructor(
     private readonly clientId: string,
