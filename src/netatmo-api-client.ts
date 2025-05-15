@@ -123,8 +123,8 @@ export class NetatmoApiClient {
     this.logger.log(
       `Requesting measure for station ${stationId} and module ${module.id} from ${dateBegin} until ${dateEnd}`
     );
-    this.countRequests++;
-    this.logger.log(`Request count: ${this.countRequests}`);
+    this.tokenRefreshRequestCount++;
+    this.logger.log(`Request count: ${this.tokenRefreshRequestCount}`);
     await this.refreshTokens();
 
     const payload = {
