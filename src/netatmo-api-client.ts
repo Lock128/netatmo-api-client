@@ -28,10 +28,10 @@ export class NetatmoApiClient {
     private readonly logger: Logger = new DefaultLogger()
   ) {
     this.http = axios.create({
-    httpsAgent: new https.Agent({
-      ALPNProtocols: ['h2', 'http/1.1']
-    })
-  });
+      httpsAgent: new https.Agent({
+        ALPNProtocols: ['h2', 'http/1.1']
+      })
+    });
     this.http.interceptors.request.use((req) => {
       req.headers['Authorization'] = `Bearer ${this.accessToken}`;
       return req;
